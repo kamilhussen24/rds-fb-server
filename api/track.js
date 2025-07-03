@@ -1,4 +1,3 @@
-// api/track.js
 require('dotenv').config();
 
 // অনুমোদিত ডোমেইনগুলোর লিস্ট
@@ -79,13 +78,13 @@ module.exports = async function handler(req, res) {
       return { fbp: '', fbc: '' };
     }
 
-    const { fbp = '', fbc = '' } = user_data;
+    const { fbp = '', fbc = '', fbclid = '' } = user_data;
 
     // fbp এবং fbc ফরম্যাট ভ্যালিডেশন
     const fbpRegex = /^fb\.\d+\.\d+\.\d+\.\d+$/;
-    const fbcRegex = /^fb\.\d+\.click\..+$/;
+    const fbcRegex = /^fb\.\d+\.\d+\..+$/;
     const validatedFbp = typeof fbp === 'string' && fbpRegex.test(fbp) ? fbp : '';
-    const validatedFbc = typeof fbc === 'string' && fbcRegex.test(fbc) ? fbc : '';
+    const validatedFbc = typeof fbc === 'string' && fbcRegex.test(fbc) ? fbc : fbclid ? `fb.1.${Math.floor(Date.now() / 1000)}.${fbclid}` : '';
 
     return { fbp: validatedFbp, fbc: validatedFbc };
   };
