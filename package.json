@@ -2,23 +2,23 @@
   "name": "facebook-track",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "keywords": [],
+  "homepage": "https://github.com/kamilhussen24/facebook-track#readme",
+  "bugs": {
+    "url": "https://github.com/kamilhussen24/facebook-track/issues"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kamilhussen24/facebook-track.git"
   },
-  "keywords": [],
-  "author": "",
   "license": "ISC",
+  "author": "",
   "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/kamilhussen24/facebook-track/issues"
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "homepage": "https://github.com/kamilhussen24/facebook-track#readme",
   "dependencies": {
-    "dotenv": "^17.0.0"
+    "dotenv": "^17.0.1"
   }
 }
