@@ -1,11 +1,11 @@
 require('dotenv').config();
 
-// অনুমোদিত ডোমেইনগুলোর লিস্ট
+// List of allowed domains
 const ALLOWED_ORIGINS = [
  'https://fb-kamil.surge.sh',
  'https://rdstrading007.com',
  'https://client2.com',
- 'http://localhost:3000' // ডেভেলপমেন্টের জন্য
+ 'http://localhost:3000' // For development
 ];
 
 module.exports = async function handler(req, res) {
@@ -13,7 +13,7 @@ module.exports = async function handler(req, res) {
  const clientIp = req.headers['x-forwarded-for']?.split(',')[0]?.trim() || req.socket.remoteAddress || 'unknown';
  const timestamp = new Date().toISOString();
 
- // CORS প্রি-ফ্লাইট হ্যান্ডলিং
+ // CORS pre-flight handling
  if (req.method === 'OPTIONS') {
  if (ALLOWED_ORIGINS.includes(origin)) {
  res.setHeader('Access-Control-Allow-Origin', origin);
@@ -26,13 +26,13 @@ module.exports = async function handler(req, res) {
  }
  }
 
- // শুধুমাত্র POST মেথড অনুমোদিত
+ // Only POST method is allowed.
  if (req.method !== 'POST') {
  console.error(`🚫 Method Not Allowed: ${req.method} request from ${origin} (IP: ${clientIp}) at ${timestamp}`);
  return res.status(405).json({ error: 'Method not allowed', method: req.method });
  }
 
- // ডোমেইন ভ্যালিডেশন
+ // Domain validation
  if (ALLOWED_ORIGINS.includes(origin)) {
  res.setHeader('Access-Control-Allow-Origin', origin);
  } else {
@@ -53,7 +53,7 @@ module.exports = async function handler(req, res) {
  return res.status(500).json({ error: 'Server configuration error: Missing FB_ACCESS_TOKEN' });
  }
 
- // ইনপুট ডিস্ট্রাকচারিং
+ // Input destructuring
  const {
  event_name,
  event_source_url,
@@ -64,7 +64,7 @@ module.exports = async function handler(req, res) {
  user_data = {}
  } = req.body;
 
- // প্রয়োজনীয় ফিল্ড ভ্যালিডেশন
+ // Required field validation
  if (!event_name || !event_source_url || !event_id || !event_time) {
  console.error(`🚫 Missing Required Fields: ${JSON.stringify({ event_name, event_source_url, event_id, event_time }, null, 2)} from ${origin} (IP: ${clientIp}) at ${timestamp}`);
  return res.status(400).json({ error: 'Missing required fields' });
@@ -81,7 +81,7 @@ module.exports = async function handler(req, res) {
  return fbp;
  };
 
- // user_data ভ্যালিডেশন ফাংশন
+ // user_data Validation function
  const validateUserData = (user_data) => {
  if (!user_data || typeof user_data !== 'object') {
  console.warn(`⚠️ Invalid user_data: not an object from ${origin} (IP: ${clientIp}) at ${timestamp}`, user_data);
@@ -90,7 +90,7 @@ module.exports = async function handler(req, res) {
 
  const { fbp = '', fbc = '', fbclid = '' } = user_data;
 
- // fbp এবং fbc ফরম্যাট ভ্যালিডেশন
+ // fbp and fbc format validation
  const fbpRegex = /^fb\.\d+\.\d+\.\d+\.\d+$/;
  const fbcRegex = /^fb\.\d+\.\d+\..+$/;
  const validatedFbp = typeof fbp === 'string' && fbpRegex.test(fbp) ? fbp : generateFbp();
@@ -101,7 +101,7 @@ module.exports = async function handler(req, res) {
 
  const { fbp, fbc } = validateUserData(user_data);
 
- // custom_data ভ্যালিডেশন
+ // custom_data Validation
  const validateCustomData = (custom_data) => {
  if (!custom_data || typeof custom_data !== 'object') {
  return {};
@@ -115,10 +115,10 @@ module.exports = async function handler(req, res) {
  return validCustomData;
  };
 
- // ইভেন্ট টাইম ভ্যালিডেশন
+ // Event Time Validation
  const validatedEventTime = Number.isInteger(Number(event_time)) ? Number(event_time) : Math.floor(Date.now() / 1000);
 
- // ইভেন্ট ডেটা তৈরি
+ // Event data creation
  const body = {
  data: [
  {
@@ -138,10 +138,10 @@ module.exports = async function handler(req, res) {
  ],
  };
 
- // ইভেন্ট লগ করা
+ // Event logging
  console.log(`✅ Sent to Facebook: ${JSON.stringify(body, null, 2)} from ${origin} (IP: ${clientIp}) at ${timestamp}`);
 
- // ফেসবুক API-তে ইভেন্ট পাঠানো
+ // Sending events to the Facebook API
  try {
  const fbRes = await fetch(
  `https://graph.facebook.com/v19.0/${pixel_id }/events?access_token=${access_token}`,
@@ -167,7 +167,7 @@ module.exports = async function handler(req, res) {
  }
 };
 
-// ইউনিক ইভেন্ট আইডি জেনারেট করা (সার্ভারে ব্যাকআপ)
+// Generating unique event ID (backup on server)
 function generateEventId(name) {
  return `${name}-${crypto.randomUUID()}`;
 }
