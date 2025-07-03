@@ -4,7 +4,7 @@ require('dotenv').config();
 const ALLOWED_ORIGINS = [
  'https://fb-kamil.surge.sh',
  'https://rdstrading007.com',
- 'https://client2.com',
+ 'https://fp-solution.vercel.app',
  'http://localhost:3000' // For development
 ];
 
