@@ -4,7 +4,7 @@ require('dotenv').config();
 // অনুমোদিত ডোমেইনগুলোর লিস্ট
 const ALLOWED_ORIGINS = [
   'https://fb-kamil.surge.sh',
-  'https://client1.com',
+  'https://rdstrading007.com',
   'https://client2.com',
   'http://localhost:3000' // ডেভেলপমেন্টের জন্য
 ];
