@@ -102,6 +102,16 @@ module.exports = async function handler(req, res) {
         return fbp;
     };
 
+    // Helper function to generate fbc
+    const generateFbc = (fbclid) => {
+        const version = 'fb';
+        const subdomainIndex = 1;
+        const creationTime = validatedEventTime;
+        const fbc = `${version}.${subdomainIndex}.${creationTime}.${fbclid}`;
+        console.log(`Generated fbc in backend: ${fbc} at ${timestamp}`);
+        return fbc;
+    };
+
     // user_data Validation function
     const validateUserData = (user_data) => {
         if (!user_data || typeof user_data !== 'object') {
@@ -109,35 +119,54 @@ module.exports = async function handler(req, res) {
             return { fbp: generateFbp(), fbc: '' };
         }
 
-        const { fbp = '', fbc = '', fbclid = '' } = user_data;
+        let { fbp = '', fbc = '', fbclid = '' } = user_data;
 
-        // fbp and fbc format validation
-        const fbpRegex = /^fb\.\d+\.\d+\.\d+\.\d+$/;
-        const fbcRegex = /^fb\.\d+\.\d+\..+$/;
-        
-        // Validate creationTime in fbp
+        // fbp format validation
+        const fbpRegex = /^fb\.\d+\.\d+\.\d+$/;
         let validatedFbp = fbp;
-        if (typeof fbp === 'string' && fbpRegex.test(fbp)) {
-            const fbpCreationTime = parseInt(fbp.split('.')[2], 10);
-            if (fbpCreationTime < currentTime - 7 * 24 * 60 * 60 || fbpCreationTime > currentTime + 60) {
-                console.warn(`⚠️ Invalid fbp creationTime: ${fbpCreationTime}. Regenerating fbp from ${origin} (IP: ${clientIp}) at ${timestamp}`);
+        if (typeof fbp === 'string') {
+            // Attempt to fix malformed fbp with extra components
+            const fbpParts = fbp.split('.');
+            if (fbpParts.length > 4) {
+                console.warn(`⚠️ Malformed fbp with too many components: ${fbp}. Attempting to fix from ${origin} (IP: ${clientIp}) at ${timestamp}`);
+                fbp = `fb.${fbpParts[1]}.${fbpParts[2]}.${fbpParts[3]}`; // Keep first four components
+            }
+            if (fbpRegex.test(fbp)) {
+                const creationTime = parseInt(fbp.split('.')[2], 10);
+                if (creationTime < currentTime - 7 * 24 * 60 * 60 || creationTime > currentTime + 60) {
+                    console.warn(`⚠️ Invalid fbp creationTime: ${creationTime}. Regenerating fbp from ${origin} (IP: ${clientIp}) at ${timestamp}`);
+                    validatedFbp = generateFbp();
+                }
+            } else {
+                console.warn(`⚠️ Invalid fbp format: ${fbp}. Regenerating fbp from ${origin} (IP: ${clientIp}) at ${timestamp}`);
                 validatedFbp = generateFbp();
             }
         } else {
-            console.warn(`⚠️ Invalid fbp format: ${fbp}. Regenerating fbp from ${origin} (IP: ${clientIp}) at ${timestamp}`);
+            console.warn(`⚠️ Invalid fbp type: ${typeof fbp}. Regenerating fbp from ${origin} (IP: ${clientIp}) at ${timestamp}`);
             validatedFbp = generateFbp();
         }
 
-        // Validate creationTime in fbc
+        // fbc format validation
+        const fbcRegex = /^fb\.\d+\.\d+\..+$/;
         let validatedFbc = fbc;
         if (typeof fbc === 'string' && fbcRegex.test(fbc)) {
-            const fbcCreationTime = parseInt(fbc.split('.')[2], 10);
+            let fbcParts = fbc.split('.');
+            let fbcCreationTime = parseInt(fbcParts[2], 10);
+            // Attempt to fix milliseconds-based creationTime
+            if (fbcCreationTime > currentTime * 1000) {
+                console.warn(`⚠️ fbc creationTime appears to be in milliseconds: ${fbcCreationTime}. Converting to seconds from ${origin} (IP: ${clientIp}) at ${timestamp}`);
+                fbcCreationTime = Math.floor(fbcCreationTime / 1000);
+                fbcParts[2] = fbcCreationTime;
+                fbc = fbcParts.join('.');
+            }
             if (fbcCreationTime < currentTime - 7 * 24 * 60 * 60 || fbcCreationTime > currentTime + 60) {
                 console.warn(`⚠️ Invalid fbc creationTime: ${fbcCreationTime}. Regenerating fbc from ${origin} (IP: ${clientIp}) at ${timestamp}`);
-                validatedFbc = fbclid ? `fb.1.${validatedEventTime}.${fbclid}` : '';
+                validatedFbc = fbclid ? generateFbc(fbclid) : '';
+            } else {
+                validatedFbc = fbc; // Use corrected fbc if creationTime is valid
             }
         } else {
-            validatedFbc = fbclid ? `fb.1.${validatedEventTime}.${fbclid}` : '';
+            validatedFbc = fbclid ? generateFbc(fbclid) : '';
         }
 
         return { fbp: validatedFbp, fbc: validatedFbc };
