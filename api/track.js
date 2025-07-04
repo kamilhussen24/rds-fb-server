@@ -194,7 +194,6 @@ module.exports = async function handler(req, res) {
             {
                 event_name: typeof event_name === 'string' ? event_name : 'UnknownEvent',
                 event_time: validatedEventTime,
-                creation_time: Date.now(),
                 action_source: 'website',
                 event_source_url: typeof event_source_url === 'string' ? event_source_url : '',
                 event_id: typeof event_id === 'string' ? event_id : generateEventId('UnknownEvent'),
