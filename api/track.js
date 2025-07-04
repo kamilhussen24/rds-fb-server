@@ -84,12 +84,25 @@ module.exports = async function handler(req, res) {
     }
 
     // Event Time Validation
-    const currentTime = Math.floor(Date.now() / 1000);
-    let validatedEventTime = Number.isInteger(Number(event_time)) ? Number(event_time) : currentTime;
-    if (validatedEventTime < currentTime - 7 * 24 * 60 * 60 || validatedEventTime > currentTime + 60) {
-        console.warn(`⚠️ Invalid event_time: ${validatedEventTime}. Adjusting to current time: ${currentTime} from ${origin} (IP: ${clientIp}) at ${timestamp}`);
-        validatedEventTime = currentTime;
+const currentTime = Math.floor(Date.now() / 1000);
+let validatedEventTime = Number.isInteger(Number(event_time)) ? Number(event_time) : currentTime;
+
+// Extract fbclid time if available
+const fbclidTime = user_data?.fbclid ? parseInt(user_data.fbclid.split('_')[1], 10) : null;
+
+// Validate against fbclid time first
+if (fbclidTime && !isNaN(fbclidTime)) {
+    if (validatedEventTime < fbclidTime) {
+        console.warn(`⚠️ event_time (${validatedEventTime}) is earlier than fbclid time (${fbclidTime}). Adjusting...`);
+        validatedEventTime = fbclidTime;
     }
+}
+
+// Then validate against general time window
+if (validatedEventTime < currentTime - 7 * 24 * 60 * 60 || validatedEventTime > currentTime + 60) {
+    console.warn(`⚠️ Invalid event_time: ${validatedEventTime}. Adjusting to current time: ${currentTime} from ${origin} (IP: ${clientIp}) at ${timestamp}`);
+    validatedEventTime = currentTime;
+}
 
     // Helper function to generate fbp
     const generateFbp = () => {
