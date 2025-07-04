@@ -7,7 +7,7 @@ const ALLOWED_ORIGINS = [
     'https://fb-kamil.surge.sh',
     'https://rdstrading007.com',
     'https://fp-solution.vercel.app',
-    'http://localhost:3000' // For development
+    'http://localhost:3000'
 ];
 
 module.exports = async function handler(req, res) {
@@ -15,6 +15,9 @@ module.exports = async function handler(req, res) {
     const clientIp = req.headers['x-forwarded-for']?.split(',')[0]?.trim() || req.socket.remoteAddress || 'unknown';
     const timestamp = new Date().toISOString();
     const userAgent = req.headers['user-agent'] || 'unknown';
+
+    // Log request receipt for debugging
+    console.log(`📥 Received request: method=${req.method}, origin=${origin}, IP=${clientIp}, userAgent=${userAgent} at ${timestamp}`);
 
     // Bot detection
     if (userAgent.toLowerCase().includes('bot') || userAgent.toLowerCase().includes('crawler')) {
@@ -28,6 +31,7 @@ module.exports = async function handler(req, res) {
             res.setHeader('Access-Control-Allow-Origin', origin);
             res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
             res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+            console.log(`✅ CORS preflight approved for ${origin} at ${timestamp}`);
             return res.status(200).end();
         } else {
             console.warn(`⚠️ CORS Preflight Rejected: Invalid origin ${origin} from IP ${clientIp} at ${timestamp}`);
@@ -84,31 +88,33 @@ module.exports = async function handler(req, res) {
     }
 
     // Event Time Validation
-const currentTime = Math.floor(Date.now() / 1000);
-let validatedEventTime = Number.isInteger(Number(event_time)) ? Number(event_time) : currentTime;
+    const currentTime = Math.floor(Date.now() / 1000);
+    let validatedEventTime = Number.isInteger(Number(event_time)) ? Number(event_time) : currentTime;
 
-// Extract fbclid time if available
-const fbclidTime = user_data?.fbclid ? parseInt(user_data.fbclid.split('_')[1], 10) : null;
+    // Extract fbclid time if available
+    const fbclid = user_data?.fbclid || '';
+    const fbclidTimeMatch = fbclid.match(/_\d+$/);
+    const fbclidTime = fbclidTimeMatch ? parseInt(fbclidTimeMatch[0].slice(1), 10) : null;
 
-// Validate against fbclid time first
-if (fbclidTime && !isNaN(fbclidTime)) {
-    if (validatedEventTime < fbclidTime) {
-        console.warn(`⚠️ event_time (${validatedEventTime}) is earlier than fbclid time (${fbclidTime}). Adjusting...`);
-        validatedEventTime = fbclidTime;
+    // Validate event_time against fbclid time
+    if (fbclidTime && !isNaN(fbclidTime)) {
+        if (validatedEventTime < fbclidTime) {
+            console.warn(`⚠️ event_time (${validatedEventTime}) is earlier than fbclid time (${fbclidTime}). Adjusting to fbclid time from ${origin} (IP: ${clientIp}) at ${timestamp}`);
+            validatedEventTime = fbclidTime;
+        }
     }
-}
 
-// Then validate against general time window
-if (validatedEventTime < currentTime - 7 * 24 * 60 * 60 || validatedEventTime > currentTime + 60) {
-    console.warn(`⚠️ Invalid event_time: ${validatedEventTime}. Adjusting to current time: ${currentTime} from ${origin} (IP: ${clientIp}) at ${timestamp}`);
-    validatedEventTime = currentTime;
-}
+    // Validate against general time window
+    if (validatedEventTime < currentTime - 7 * 24 * 60 * 60 || validatedEventTime > currentTime + 60) {
+        console.warn(`⚠️ Invalid event_time: ${validatedEventTime}. Adjusting to current time: ${currentTime} from ${origin} (IP: ${clientIp}) at ${timestamp}`);
+        validatedEventTime = currentTime;
+    }
 
     // Helper function to generate fbp
     const generateFbp = () => {
         const version = 'fb';
         const subdomainIndex = 1;
-        const creationTime = validatedEventTime; // Use validated event time for consistency
+        const creationTime = validatedEventTime;
         const randomNumber = Math.floor(Math.random() * 10000000000);
         const fbp = `${version}.${subdomainIndex}.${creationTime}.${randomNumber}`;
         console.log(`Generated fbp in backend: ${fbp} at ${timestamp}`);
@@ -138,15 +144,19 @@ if (validatedEventTime < currentTime - 7 * 24 * 60 * 60 || validatedEventTime > 
         const fbpRegex = /^fb\.\d+\.\d+\.\d+$/;
         let validatedFbp = fbp;
         if (typeof fbp === 'string') {
-            // Attempt to fix malformed fbp with extra components
             const fbpParts = fbp.split('.');
             if (fbpParts.length > 4) {
-                console.warn(`⚠️ Malformed fbp with too many components: ${fbp}. Attempting to fix from ${origin} (IP: ${clientIp}) at ${timestamp}`);
-                fbp = `fb.${fbpParts[1]}.${fbpParts[2]}.${fbpParts[3]}`; // Keep first four components
+                console.warn(`⚠️ Malformed fbp with too many components: ${fbp}. Fixing to first four components from ${origin} (IP: ${clientIp}) at ${timestamp}`);
+                fbp = `fb.${fbpParts[1]}.${fbpParts[2]}.${fbpParts[3]}`;
             }
             if (fbpRegex.test(fbp)) {
-                const creationTime = parseInt(fbp.split('.')[2], 10);
-                if (creationTime < currentTime - 7 * 24 * 60 * 60 || creationTime > currentTime + 60) {
+                let creationTime = parseInt(fbp.split('.')[2], 10);
+                if (creationTime > currentTime * 1000) {
+                    console.warn(`⚠️ fbp creationTime appears to be in milliseconds: ${creationTime}. Converting to seconds from ${origin} (IP: ${clientIp}) at ${timestamp}`);
+                    creationTime = Math.floor(creationTime / 1000);
+                    fbp = fbp.split('.').slice(0, 2).concat([creationTime], fbp.split('.').slice(3)).join('.');
+                }
+                if (isNaN(creationTime) || creationTime < currentTime - 7 * 24 * 60 * 60 || creationTime > currentTime + 60) {
                     console.warn(`⚠️ Invalid fbp creationTime: ${creationTime}. Regenerating fbp from ${origin} (IP: ${clientIp}) at ${timestamp}`);
                     validatedFbp = generateFbp();
                 }
@@ -165,18 +175,17 @@ if (validatedEventTime < currentTime - 7 * 24 * 60 * 60 || validatedEventTime > 
         if (typeof fbc === 'string' && fbcRegex.test(fbc)) {
             let fbcParts = fbc.split('.');
             let fbcCreationTime = parseInt(fbcParts[2], 10);
-            // Attempt to fix milliseconds-based creationTime
             if (fbcCreationTime > currentTime * 1000) {
                 console.warn(`⚠️ fbc creationTime appears to be in milliseconds: ${fbcCreationTime}. Converting to seconds from ${origin} (IP: ${clientIp}) at ${timestamp}`);
                 fbcCreationTime = Math.floor(fbcCreationTime / 1000);
                 fbcParts[2] = fbcCreationTime;
                 fbc = fbcParts.join('.');
             }
-            if (fbcCreationTime < currentTime - 7 * 24 * 60 * 60 || fbcCreationTime > currentTime + 60) {
+            if (isNaN(fbcCreationTime) || fbcCreationTime < currentTime - 7 * 24 * 60 * 60 || fbcCreationTime > currentTime + 60) {
                 console.warn(`⚠️ Invalid fbc creationTime: ${fbcCreationTime}. Regenerating fbc from ${origin} (IP: ${clientIp}) at ${timestamp}`);
                 validatedFbc = fbclid ? generateFbc(fbclid) : '';
             } else {
-                validatedFbc = fbc; // Use corrected fbc if creationTime is valid
+                validatedFbc = fbc;
             }
         } else {
             validatedFbc = fbclid ? generateFbc(fbclid) : '';
@@ -188,16 +197,42 @@ if (validatedEventTime < currentTime - 7 * 24 * 60 * 60 || validatedEventTime > 
     const { fbp, fbc } = validateUserData(user_data);
 
     // custom_data Validation
-    const validateCustomData = (custom_data) => {
+    const validateCustomData = (custom_data, event_name) => {
         if (!custom_data || typeof custom_data !== 'object') {
-            return {};
+            console.warn(`⚠️ Invalid custom_data: not an object for ${event_name} from ${origin} (IP: ${clientIp}) at ${timestamp}`);
+            return event_name === 'ClaimNowClick' ? { value: 10.0, currency: 'USD' } : {};
         }
+
         const validCustomData = {};
-        if (typeof custom_data.value === 'number') validCustomData.value = custom_data.value;
-        if (typeof custom_data.currency === 'string') validCustomData.currency = custom_data.currency;
+
+        // Validate value for ClaimNowClick
+        if (event_name === 'ClaimNowClick') {
+            if (typeof custom_data.value !== 'number' || isNaN(custom_data.value) || custom_data.value < 0) {
+                console.warn(`⚠️ Invalid or missing value for ClaimNowClick: ${custom_data.value}. Setting default to 10.0 from ${origin} (IP: ${clientIp}) at ${timestamp}`);
+                validCustomData.value = 10.0; // Default value, adjust as needed
+            } else {
+                validCustomData.value = custom_data.value;
+            }
+        } else if (typeof custom_data.value === 'number' && !isNaN(custom_data.value)) {
+            validCustomData.value = custom_data.value;
+        }
+
+        // Validate currency for ClaimNowClick
+        if (event_name === 'ClaimNowClick') {
+            if (typeof custom_data.currency !== 'string' || !/^[A-Z]{3}$/.test(custom_data.currency)) {
+                console.warn(`⚠️ Invalid or missing currency for ClaimNowClick: ${custom_data.currency}. Setting default to USD from ${origin} (IP: ${clientIp}) at ${timestamp}`);
+                validCustomData.currency = 'USD'; // Use 'BDT' for Bangladesh if applicable
+            } else {
+                validCustomData.currency = custom_data.currency;
+            }
+        } else if (typeof custom_data.currency === 'string' && /^[A-Z]{3}$/.test(custom_data.currency)) {
+            validCustomData.currency = custom_data.currency;
+        }
+
         if (Array.isArray(custom_data.content_ids)) validCustomData.content_ids = custom_data.content_ids;
         if (typeof custom_data.content_type === 'string') validCustomData.content_type = custom_data.content_type;
         if (typeof custom_data.content_category === 'string') validCustomData.content_category = custom_data.content_category;
+
         return validCustomData;
     };
 
@@ -216,7 +251,7 @@ if (validatedEventTime < currentTime - 7 * 24 * 60 * 60 || validatedEventTime > 
                     fbp,
                     ...(fbc ? { fbc } : {})
                 },
-                custom_data: validateCustomData(custom_data)
+                custom_data: validateCustomData(custom_data, event_name)
             }
         ]
     };
