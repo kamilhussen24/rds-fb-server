@@ -1,23 +1,9 @@
 {
   "version": 2,
-  "builds": [
+  "rewrites": [
     {
-      "src": "api/track.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "index.html",
-      "use": "@vercel/static"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/track",
-      "dest": "api/track.js"
-    },
-    {
-      "src": "/",
-      "dest": "index.html"
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
     }
   ]
 }

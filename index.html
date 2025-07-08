@@ -3,520 +3,1017 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Button Tracking Demo</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- SweetAlert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <!-- Facebook Pixel -->
+    <title>RDS Binary Trading Signals | Free 3-Day Trial</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script>
-        !function(f,b,e,v,n,t,s)
-        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-        n.queue=[];t=b.createElement(e);t.async=!0;
-        t.src=v;s=b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t,s)}(window, document,'script',
-        'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', '1395230681787715');
-        fbq('track', 'PageView');
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.com/en_US/fbevents.js');
+    fbq('init', '1395230681787715'); // Your Facebook Pixel ID (e.g., '1415758302881950')
+    // PageView is handled by custom JS for server-side integration and deduplication.
     </script>
-    <noscript>
-        <img height="1" width="1" style="display:none"
-             src="https://www.facebook.com/tr?id=1395230681787715&ev=PageView&noscript=1"/>
-    </noscript>
-    <style>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1395230681787715&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- Primary Meta Tags -->
+<title>RDS Binary Trading Signals | Free 3-Day Trial</title>
+<meta name="title" content="RDS Binary Trading Signals | Free 3-Day Trial" />
+<meta name="description" content="Get a 3-day free trial of RDS Binary Trading Signals. Reliable signals with 24/7 support to help you trade smarter and win consistently." />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://rdstrading007.com/" />
+<meta property="og:title" content="RDS Binary Trading Signals | Free 3-Day Trial" />
+<meta property="og:description" content="Get a 3-day free trial of RDS Binary Trading Signals. Reliable signals with 24/7 support to help you trade smarter and win consistently." />
+<meta property="og:image" content="https://rdstrading007.com/logo.webp" />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content="https://rdstrading007.com//" />
+<meta property="twitter:title" content="RDS Binary Trading Signals | Free 3-Day Trial" />
+<meta property="twitter:description" content="Get a 3-day free trial of RDS Binary Trading Signals. Reliable signals with 24/7 support to help you trade smarter and win consistently." />
+<meta property="twitter:image" content="https://rdstrading007.com/logo.webp" />
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Cloudflare Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- SweetAlert2 CSS & JS CDN -->
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<style>
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --secondary: #10b981;
+            --accent: #f59e0b;
+            --danger: #ef4444;
+            --light: #ffffff;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --light-gray: #e2e8f0;
+            --success: #10b981;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+            --gradient-accent: linear-gradient(135deg, var(--accent), var(--danger));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
-            padding: 20px;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
         }
-        .section {
-            padding: 30px 0;
-            background-color: white;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
         }
-        .section h2 {
+
+        /* Navbar */
+        .navbar {
+            background-color: var(--light);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: var(--shadow-sm);
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .navbar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .navbar-text {
+            font-size: 0.9rem;
+            color: var(--gray);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .navbar-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            position: relative;
+            top: -2px;
+        }
+
+        .navbar-link:hover {
+            color: var(--primary-dark);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 3rem 0 2rem;
             text-align: center;
-            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(16, 185, 129, 0.05) 100%);
         }
-        .btn {
-            transition: transform 0.3s, box-shadow 0.3s;
-            margin: 10px;
-        }
-        .btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-        .ripple {
+
+        .hero-pattern {
             position: absolute;
-            background: rgba(255, 255, 255, 0.5);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            background-image: radial-gradient(var(--primary) 1px, transparent 1px);
+            background-size: 20px 20px;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-img {
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
-            width: 100px;
-            height: 100px;
-            transform: translate(-50%, -50%) scale(0);
-            animation: ripple 0.6s linear;
-            pointer-events: none;
+            object-fit: cover;
+            border: 5px solid var(--light);
+            box-shadow: var(--shadow-xl);
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
         }
-        @keyframes ripple {
-            to {
-                transform: translate(-50%, -50%) scale(4);
-                opacity: 0;
+
+        .profile-img:hover {
+            transform: scale(1.05) rotate(5deg);
+            box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        .brand-heading {
+            margin-bottom: 1.5rem;
+        }
+
+        .brand-heading h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+
+        .brand-heading p {
+            font-size: 1.1rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .hero-title {
+    margin-top: 1rem;
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-align: center;
+    color: #3b82f6;
+}
+
+        /* Free Trial Banner */
+.free-trial-banner {
+    background: var(--gradient-accent);
+    color: white;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    margin: 1.5rem auto;
+    max-width: 1200px;
+    font-weight: 700;
+    box-shadow: var(--shadow-md);
+    animation: pulse 2s infinite;
+    text-align: center;
+}
+
+/* Flex layout for icon and text */
+.banner-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    font-size: 1.5rem;
+    line-height: 1.4;
+}
+
+/* Icon styling */
+.banner-content i {
+    font-size: 1.5rem;
+    color: white;
+    flex-shrink: 0;
+}
+
+#countdown {
+    margin-top: 0.4rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-align: center;
+    opacity: 0.9;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+#countdown i {
+    font-size: 1rem;
+    vertical-align: middle;
+}
+
+/* Desktop styles */
+@media (min-width: 992px) {
+    #countdown {
+        font-size: 2rem;
+    }
+    #countdown i {
+        font-size: 1.5rem;
+    }
+}
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.03);
+            }
+            100% {
+                transform: scale(1);
             }
         }
+
+        /* Now Button */
+.now-button-container {
+    margin: 1rem auto;
+    max-width: 600px;
+    text-align: center;
+}
+
+.now-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1rem 2.5rem;
+    font-size: 1.15rem;
+    font-weight: 800;
+    text-decoration: none;
+    border-radius: 0.75rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    background: linear-gradient(45deg, #ff416c, #ff4b2b);
+    color: white;
+    box-shadow: 0 6px 15px rgba(255, 75, 43, 0.5);
+    border: none;
+    outline: none;
+    user-select: none;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+}
+
+.now-button:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(255, 75, 43, 0.8);
+    background: linear-gradient(45deg, #ff4b2b, #ff416c);
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+}
+
+        /* Stats */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            background: var(--light);
+            padding: 1rem;
+            border-radius: 0.75rem;
+            box-shadow: var(--shadow-md);
+            min-width: 160px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--light-gray);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-number {
+            font-size: 1.75rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--gray);
+            font-weight: 500;
+        }
+
+        /* Public Group Info */
+.public-group-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
+}
+
+.public-group-info p {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: var(--dark);
+    line-height: 1.6;
+    max-width: 600px;
+    justify-content: flex-start;
+}
+
+.public-group-info i {
+    color: var(--success);
+    font-size: 1.2rem;
+    margin-top: 0.2rem;
+    flex-shrink: 0;
+}
+
+.public-group-info span {
+    display: inline-block;
+}
+
+        /* CTA Section */
+        .cta-section {
+            background: var(--gradient);
+            padding: 2rem 2rem 1rem 2rem;
+            border-radius: 1rem;
+            margin: 2rem 0;
+            box-shadow: var(--shadow-xl);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+            z-index: 0;
+            animation: pulse-bg 8s infinite linear;
+        }
+
+        @keyframes pulse-bg {
+            0% {
+                transform: translate(0, 0);
+            }
+            50% {
+                transform: translate(50%, 50%);
+            }
+            100% {
+                transform: translate(0, 0);
+            }
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-heading {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 1rem;
+    
+    /* Centering styles */
+    text-align: center; /* Text will be center-aligned */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+        .cta-text {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1.5rem;
+            max-width: 600px;
+            text-align: center;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            font-size: 1.125rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 0.75rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            border: none;
+            outline: none;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: var(--gradient-accent);
+            color: white;
+            box-shadow: 0 10px 20px -5px rgba(245, 158, 11, 0.4);
+            animation: pulse-glow 2s infinite;
+        }
+
+        @keyframes pulse-glow {
+            0% {
+                box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(245, 158, 11, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(245, 158, 11, 0);
+            }
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 30px -5px rgba(245, 158, 11, 0.5);
+            animation: none;
+        }
+
+        .btn-primary:active {
+            transform: translateY(1px);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary-dark);
+            box-shadow: var(--shadow-md);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 0.1rem;
+            padding: 2rem 0;
+            text-align: center;
+            color: var(--gray);
+            font-size: 0.875rem;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
+            .brand-heading h1 {
+                font-size: 2rem;
+            }
+            
+            .navbar-text {
+                justify-content: center;
+                text-align: center;
+                gap: 0.25rem;
+            }
+            
+            .navbar-link {
+                top: 0;
+            }
+            
+            .stats {
+                gap: 1rem;
+            }
+            
+            .stat-item {
+                min-width: 140px;
+                padding: 0.75rem;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+                align-items: center;
+            }
+            
             .btn {
-                font-size: 0.9rem;
-                padding: 8px 16px;
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .cta-section {
+                padding: 1.5rem;
+            }
+            
+            .cta-heading {
+                font-size: 1.5rem;
             }
         }
+
+        @media (max-width: 480px) {
+            .brand-heading h1 {
+                font-size: 1.75rem;
+            }
+            
+            .profile-img {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .stat-item {
+                min-width: 120px;
+            }
+            
+            .free-trial-banner {
+                font-size: 0.9rem;
+                padding: 0.5rem;
+            }
+            
+            .now-button {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+        .contact-admin-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #0088cc;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    z-index: 9999;
+    transition: background-color 0.3s ease;
+    
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.contact-admin-btn:hover {
+    background-color: #006699;
+}
     </style>
 </head>
 <body>
-    <!-- ID Only Buttons -->
-    <section class="section">
-        <div class="container">
-            <h2>ID Only Buttons (No Redirect)</h2>
-            <div class="row text-center">
-                <div class="col-md-4">
-                    <button class="btn btn-primary" onclick="trackEvent('InfoButtonClick', { content_ids: ['info_button'], content_type: 'button', content_category: 'id_only' })">
-                        Info Button
-                    </button>
+    <nav class="navbar">
+        <div class="container navbar-content">
+            <p class="navbar-text">
+                <span>Don't have Telegram yet?</span>
+                <a href="https://t.me/RdsTrading007" class="navbar-link" data-track-event="TryClick" data-button-name="Try Telegram Now">
+                    <i class="fab fa-telegram"></i>
+                    Try it now!
+                </a>
+            </p>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-pattern"></div>
+        <div class="container hero-content">
+            <img src="logo.webp" alt="RDS Binary Trading Signals Logo" class="profile-img">
+            <h1 class="hero-title">RDS ACCURACY TRADING</h1>
+            <div class="free-trial-banner">
+                <div class="banner-content">
+                    <i class="fas fa-gift"></i>
+                    <span>FIRST 3 DAYS PREMIUM SIGNALS FREE!</span>
                 </div>
-                <div class="col-md-4">
-                    <button class="btn btn-secondary" onclick="trackEvent('ShareButtonClick', { content_ids: ['share_button'], content_type: 'button', content_category: 'id_only' })">
-                        Share Button
-                    </button>
+                <div id="countdown"></div>
+            </div>
+            <div class="now-button-container">
+                <a href="#" id="claimBtn" class="now-button" data-track-event="ClaimNowClick" data-button-name="Claim Now Button">
+                    <i class="fab fa-telegram"></i>
+                    Claim Now
+                </a>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem; color: #007bff; text-align: center;">
+                    তিনদিন পরে কিন্তু অফার থাকবেনা, এখনই জয়েন করুন।
+                </p>
+            </div>
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">Win Rate</div>
                 </div>
-                <div class="col-md-4">
-                    <button class="btn btn-info" onclick="trackEvent('ViewDetailsClick', { content_ids: ['view_details'], content_type: 'button', content_category: 'id_only' })">
-                        View Details
-                    </button>
+                <div class="stat-item">
+                    <div class="stat-number">11K+</div>
+                    <div class="stat-label">Traders</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Support</div>
                 </div>
             </div>
         </div>
+        <a href="https://t.me/iftyadmin" class="contact-admin-btn" target="_blank" data-track-event="ContactAdminClick" data-button-name="Contact Admin Button">
+            <i class="fab fa-telegram-plane"></i> Contact Admin
+        </a>
     </section>
 
-    <!-- Link Buttons -->
-    <section class="section">
-        <div class="container">
-            <h2>Link Buttons (Direct Redirect)</h2>
-            <div class="row text-center">
-                <div class="col-md-4">
-                    <a href="https://rdstrading007.com/learn" class="btn btn-success" onclick="trackEvent('LearnMoreClick', { content_ids: ['learn_more'], content_type: 'link', content_category: 'link' })">
-                        Learn More
-                    </a>
-                </div>
-                <div class="col-md-4">
-                    <a href="https://t.me/iftyadmin" class="btn btn-warning" onclick="trackEvent('ContactUsClick', { content_ids: ['contact_us'], content_type: 'link', content_category: 'link' })">
-                        Contact Us
-                    </a>
-                </div>
-                <div class="col-md-4">
-                    <a href="https://portfolio.kamildex.com" target="_blank" class="btn btn-primary" onclick="trackEvent('PortfolioClick', { content_ids: ['portfolio'], content_type: 'link', content_category: 'link' })">
-                        Portfolio
-                    </a>
-                </div>
-            </div>
+    <section class="container">
+        <div class="public-group-info">
+            <h3>Our Free Public Group Includes:</h3>
+            <p><i class="fas fa-check"></i><span>Daily market analysis and trading insights</span></p>
+            <p><i class="fas fa-check"></i><span>Easy and helpful educational content for beginners</span></p>
+            <p><i class="fas fa-check"></i><span>Community support from experienced traders</span></p>
+            <p><i class="fas fa-check"></i><span>Sample premium signals to test our accuracy</span></p>
+            <p><i class="fas fa-check"></i><span>First 3 days of premium signals FREE for new members</span></p>
         </div>
     </section>
 
-    <!-- Buy Buttons with Price -->
-    <section class="section">
-        <div class="container">
-            <h2>Buy Buttons with Price (Popup + Redirect)</h2>
-            <div class="row text-center">
-                <div class="col-md-4">
-                    <a href="#" id="buyBasicBtn" class="btn btn-danger">Buy Basic ($49)</a>
-                </div>
-                <div class="col-md-4">
-                    <a href="#" id="buyProBtn" class="btn btn-dark">Buy Pro ($99)</a>
-                </div>
-                <div class="col-md-4">
-                    <a href="#" id="buyPremiumBtn" class="btn btn-success">Buy Premium ($199)</a>
-                </div>
+    <section class="cta-section">
+        <div class="container cta-content">
+            <h2 class="cta-heading">READY FOR PREMIUM SIGNALS?</h2>
+            <p class="cta-text">Get instant access to our high-accuracy binary trading signals with 95%+ win rate</p>
+            <div class="btn-group">
+                <a href="https://t.me/+0RsurgoEtTFmZjll" class="btn btn-primary" data-track-event="PremiumPurchaseClick" data-button-name="Premium Upgrade Button">
+                    <i class="fab fa-telegram"></i>
+                    UPGRADE TO PREMIUM NOW
+                </a>
             </div>
+            <p style="
+                color: white; 
+                font-weight: 500; 
+                text-align: center; 
+                max-width: 600px;
+                margin: 0 auto;
+                font-size: 1rem;
+            ">
+                Enjoy the first 3 days completely free no payment required.
+            </p>
         </div>
     </section>
 
-    <!-- Other Category Buttons -->
-    <section class="section">
-        <div class="container">
-            <h2>Other Category Buttons</h2>
-            <div class="row text-center">
-                <div class="col-md-3">
-                    <a href="#" id="heroCtaBtn" class="btn btn-light">Hero CTA</a>
-                </div>
-                <div class="col-md-3">
-                    <a href="https://rdstrading007.com/signup" class="btn btn-info" onclick="trackEvent('SignUpClick', { content_ids: ['sign_up'], content_type: 'link', content_category: 'content' })">
-                        Sign Up (Content)
-                    </a>
-                </div>
-                <div class="col-md-3">
-                    <a href="https://portfolio.kamildex.com" target="_blank" class="btn btn-secondary" onclick="trackEvent('FooterLinkClick', { content_ids: ['kamil_dex_link'], content_type: 'link', content_category: 'footer' })">
-                        Footer Link
-                    </a>
-                </div>
-                <div class="col-md-3">
-                    <button class="btn btn-warning" onclick="trackEvent('CtaButtonClick', { content_ids: ['cta_button'], content_type: 'button', content_category: 'cta' })">
-                        General CTA
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div id="countdown"></div>
 
-    <!-- JavaScript -->
-    <script>
-        const apiUrl = 'https://fp-solution.vercel.app/api/track';
+    <footer class="footer">
+    <div class="container">
+        <p>© 2025 RDS Binary Trading Signals. All rights reserved.</p>
+        <p style="margin-top: 0.5rem; font-size: 0.75rem;">
+            Design by 
+            <a href="https://portfolio.kamildex.com" 
+               target="_blank" 
+               style="color: #007bff; text-decoration: none;"
+               data-track-event="FooterLinkClick"
+               data-button-name="Kamil Dex Link">
+                Kamil Dex
+            </a>
+        </p>
+        <p style="margin-top: 0.5rem; font-size: 0.75rem;">
+            Trading involves risk. Past performance is not indicative of future results.
+        </p>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   <script>
+    // --- Start of Tracking Script ---
 
-        // Helper function to get cookie
-        function getCookieValue(name) {
-            const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-            return match ? match[2] : null;
-        }
+    // Function to generate a unique event ID for deduplication
+    function generateUniqueEventId() {
+        return 'evt_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    }
 
-        // Helper function to generate fbp
-        function generateFbp() {
-            const version = 'fb';
-            const subdomainIndex = 1;
-            const creationTime = Math.floor(Date.now() / 1000);
-            const randomNumber = Math.floor(Math.random() * 10000000000);
-            const fbp = `${version}.${subdomainIndex}.${creationTime}.${randomNumber}`;
-            console.log('Generated fbp:', fbp);
-            return fbp;
-        }
+    // Function to get cookie values (_fbc and _fbp)
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+        return null;
+    }
 
-        // Helper function to validate fbp
-        function validateFbp(fbp) {
-            const fbpRegex = /^fb\.\d+\.\d+\.\d+\.\d+$/;
-            return fbp && fbpRegex.test(fbp) ? fbp : generateFbp();
-        }
+    // Function to send event data to the Vercel serverless function
+    async function sendEventToVercel(eventName, buttonName = null, uniqueEventId) { 
+        // Collect Facebook cookies
+        const fbcCookie = getCookie('_fbc');
+        const fbpCookie = getCookie('_fbp');
 
-        // Helper function to generate unique event ID
-        function generateEventId(name) {
-            return `${name}-${crypto.randomUUID()}`;
-        }
+        const payload = {
+            eventName: eventName,
+            buttonName: buttonName, 
+            pageUrl: window.location.href,
+            eventId: uniqueEventId,
+            fbc: fbcCookie, 
+            fbp: fbpCookie  
+            // Optional: Include user's email or phone if collected on your site (hashed in Vercel function)
+            // userEmail: 'user@example.com', 
+            // userPhone: '1234567890'
+        };
 
-        // Event tracking function
-        async function trackEvent(event_name, options = {}) {
-            const { value = null, currency = null, url = null, content_ids = null, content_type = null, content_category = null, custom_data = {} } = options;
-            const event_id = generateEventId(event_name);
-            
-            const fbclid = new URLSearchParams(window.location.search).get('fbclid');
-            const fbc = fbclid ? `fb.1.${Math.floor(Date.now() / 1000)}.${fbclid}` : getCookieValue('_fbc') || '';
-            const rawFbp = getCookieValue('_fbp') || generateFbp();
-            const fbp = validateFbp(rawFbp);
-            const userAgent = navigator.userAgent;
-
-            console.log('Cookies and fbclid:', { fbp, fbc, fbclid, rawFbp });
-
-            const fbpRegex = /^fb\.\d+\.\d+\.\d+\.\d+$/;
-            const fbcRegex = /^fb\.\d+\.\d+\..+$/;
-            const validatedFbp = fbpRegex.test(fbp) ? fbp : generateFbp();
-            const validatedFbc = fbc && fbcRegex.test(fbc) ? fbc : fbclid ? `fb.1.${Math.floor(Date.now() / 1000)}.${fbclid}` : '';
-
-            const payload = {
-                event_name,
-                event_source_url: window.location.href,
-                event_id,
-                event_time: Math.floor(Date.now() / 1000),
-                user_data: {
-                    fbp: validatedFbp,
-                    fbc: validatedFbc,
-                    client_user_agent: userAgent
-                },
-                custom_data: {
-                    ...(value !== null ? { value } : {}),
-                    ...(currency !== null ? { currency } : {}),
-                    ...(content_ids !== null ? { content_ids } : {}),
-                    ...(content_type !== null ? { content_type } : {}),
-                    ...(content_category !== null ? { content_category } : {}),
-                    ...custom_data
-                }
-            };
-
-            console.log('Sending payload:', JSON.stringify(payload, null, 2));
-
-            if (window.fbq) {
-                fbq('trackCustom', event_name, {
-                    eventID: event_id,
-                    ...(value !== null ? { value, currency } : {}),
-                    ...(content_ids !== null ? { content_ids } : {}),
-                    ...(content_type !== null ? { content_type } : {}),
-                    ...(content_category !== null ? { content_category } : {}),
-                    ...custom_data
-                });
-            } else {
-                console.warn(`Facebook Pixel not initialized for ${event_name}`);
-            }
-
-            try {
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                if (!response.ok) {
-                    throw new Error(`Server responded with status: ${response.status}`);
-                }
-                console.log(`Event ${event_name} sent to server successfully`);
-            } catch (error) {
-                console.error(`Error sending ${event_name} event to server:`, error);
-            }
-
-            if (url) {
-                setTimeout(() => {
-                    window.location.href = url;
-                }, 3000);
-            }
-        }
-
-        // PageView event
-        window.addEventListener('DOMContentLoaded', () => {
-            const rawFbp = getCookieValue('_fbp') || generateFbp();
-            const fbp = validateFbp(rawFbp);
-            const fbclid = new URLSearchParams(window.location.search).get('fbclid');
-            const fbc = fbclid ? `fb.1.${Math.floor(Date.now() / 1000)}.${fbclid}` : getCookieValue('_fbc') || '';
-            const userAgent = navigator.userAgent;
-
-            console.log('Cookies for PageView:', { fbp, fbc, fbclid, rawFbp });
-
-            const fbpRegex = /^fb\.\d+\.\d+\.\d+\.\d+$/;
-            const fbcRegex = /^fb\.\d+\.\d+\..+$/;
-            const validatedFbp = fbpRegex.test(fbp) ? fbp : generateFbp();
-            const validatedFbc = fbc && fbcRegex.test(fbc) ? fbc : fbclid ? `fb.1.${Math.floor(Date.now() / 1000)}.${fbclid}` : '';
-
-            const payload = {
-                event_name: 'PageView',
-                event_source_url: window.location.href,
-                event_id: generateEventId('PageView'),
-                event_time: Math.floor(Date.now() / 1000),
-                user_data: {
-                    fbp: validatedFbp,
-                    fbc: validatedFbc,
-                    client_user_agent: userAgent
-                },
-                custom_data: {}
-            };
-
-            console.log('Sending PageView payload:', JSON.stringify(payload, null, 2));
-
-            if (window.fbq) {
-                fbq('track', 'PageView', { eventID: payload.event_id });
-            }
-
-            fetch(apiUrl, {
+        try {
+            console.log(`Sending '${eventName}' event to Vercel API with ID: ${uniqueEventId}`);
+            const response = await fetch('https://rds-server-kamildex.vercel.app/api/track-event', { // Path to your Vercel serverless function
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            })
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error(`Server responded with status: ${response.status}`);
-                    }
-                    console.log('PageView event sent to server successfully');
-                })
-                .catch((error) => {
-                    console.error('Error sending PageView event to server:', error);
-                });
-        });
-        
-        // Scrolling and timing tracking
-document.addEventListener('DOMContentLoaded', () => {
-    // Scrolling tracking
-    const scrollThresholds = [25, 50, 75, 100];
-    const trackedScrolls = new Set();
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload),
+                credentials: 'include' // Use 'include' to ensure cookies are sent with cross-origin requests
+            });
 
-    window.addEventListener('scroll', () => {
-        const scrollPercent = Math.floor((window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100);
-        scrollThresholds.forEach(threshold => {
-            if (scrollPercent >= threshold && !trackedScrolls.has(threshold)) {
-                trackedScrolls.add(threshold);
-                trackEvent(`Scroll${threshold}Percent`, {
-                    content_ids: [`scroll_${threshold}`],
-                    content_type: 'scroll',
-                    content_category: 'page'
-                });
-                console.log(`Tracked Scroll${threshold}Percent at:`, new Date().toISOString());
+            const data = await response.json();
+            console.log(`Vercel Function Response for '${eventName}':`, data);
+
+            if (!data.success) {
+                console.error('ERROR: Failed to send event via Vercel:', data.message);
             }
-        });
+
+        } catch (error) {
+            console.error('ERROR: Error calling Vercel function:', error);
+        }
+    }
+
+    // --- PageView Tracking Setup ---
+    // Generate a unique ID for the initial PageView
+    const pageViewEventId = generateUniqueEventId();
+
+    // Send Server-Side PageView event on page load
+    window.addEventListener('load', function() {
+        sendEventToVercel('PageView', null, pageViewEventId); // buttonName is null for PageView
     });
-    
-    // Timing tracking
-    const timeThresholds = [10, 30, 60];
-    let startTime = Date.now();
 
-    setInterval(() => {
-        const timeSpent = Math.floor((Date.now() - startTime) / 1000);
-        timeThresholds.forEach(threshold => {
-            if (timeSpent >= threshold && !window[`trackedTime${threshold}`]) {
-                window[`trackedTime${threshold}`] = true;
-                trackEvent(`TimeSpent${threshold}Seconds`, {
-                    content_ids: [`time_${threshold}`],
-                    content_type: 'time',
-                    content_category: 'page'
-                });
-                console.log(`Tracked TimeSpent${threshold}Seconds at:`, new Date().toISOString());
+    // Send Browser-Side PageView event (with the same event_id for deduplication)
+    fbq('track', 'PageView', {
+        event_id: pageViewEventId 
+    });
+    console.log(`Browser-side 'PageView' event sent with ID: ${pageViewEventId}`);
+
+    // --- General Button Click Tracking Setup (using Event Delegation) ---
+    // This listener handles all elements with 'data-track-event' attributes.
+    // It excludes 'claimBtn' as it has specific, separate handling.
+    document.addEventListener('click', function(event) {
+        const targetElement = event.target.closest('[data-track-event]');
+
+        // Only process if it's a trackable element AND not the specific 'claimBtn'
+        if (targetElement && targetElement.id !== 'claimBtn') { 
+            const eventName = targetElement.dataset.trackEvent; 
+            const buttonName = targetElement.dataset.buttonName || targetElement.innerText || eventName; 
+
+            const uniqueEventId = generateUniqueEventId(); 
+
+            // 1. Send Server-Side Event via Vercel Function
+            sendEventToVercel(eventName, buttonName, uniqueEventId);
+
+            // 2. Send Browser-Side Pixel Event (with the same event_id for deduplication)
+            fbq('track', eventName, {
+                button_name: buttonName,
+                page_url: window.location.href,
+                event_id: uniqueEventId 
+            });
+            console.log(`Browser-side '${eventName}' event also sent with ID: ${uniqueEventId}`);
+        }
+    });
+
+
+    // --- Specific Tracking & Logic for 'claimBtn' with SweetAlert2 and Auto Redirect ---
+    document.getElementById('claimBtn').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent default link behavior
+
+        // --- 1. ClaimNowClick Tracking Implementation ---
+        // This event tracks the initial click on the "Claim Now" button.
+        const claimEventName = this.dataset.trackEvent; // Gets "ClaimNowClick" from data-track-event
+        const claimButtonName = this.dataset.buttonName; // Gets "Claim Now Button" from data-button-name
+        const claimUniqueEventId = generateUniqueEventId(); 
+
+        // Send Server-Side Event for ClaimNowClick
+        sendEventToVercel(claimEventName, claimButtonName, claimUniqueEventId);
+        console.log(`Server-side '${claimEventName}' event sent with ID: ${claimUniqueEventId}`);
+
+        // Send Browser-Side Pixel Event for ClaimNowClick
+        fbq('track', claimEventName, {
+            button_name: claimButtonName,
+            page_url: window.location.href,
+            event_id: claimUniqueEventId
+        });
+        console.log(`Browser-side '${claimEventName}' event sent with ID: ${claimUniqueEventId}`);
+        // --- End ClaimNowClick Tracking ---
+
+
+        // Display SweetAlert2 popup
+        Swal.fire({
+            title: 'Congratulations!',
+            html: 'You will be redirected to Telegram in <b></b> seconds.',
+            icon: 'success',
+            confirmButtonText: 'Go to Telegram',
+            background: '#fff',
+            color: '#333',
+            confirmButtonColor: '#3085d6',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            timer: 3000, // Countdown timer in milliseconds
+            timerProgressBar: true,
+            didOpen: () => {
+                const b = Swal.getHtmlContainer().querySelector('b');
+                let timerInterval = setInterval(() => {
+                    // Update countdown text every 100ms
+                    b.textContent = Math.ceil(Swal.getTimerLeft() / 1000);
+                }, 100);
+            },
+            willClose: () => { // Clear interval when SweetAlert2 closes
+                clearInterval(this.timerInterval);
+            }
+        }).then((result) => {
+            // This block runs when the timer finishes OR user clicks "Go to Telegram" button.
+            if (result.isConfirmed) { // User clicked "Go to Telegram" button
+                console.log('User clicked "Go to Telegram" button inside popup. Redirecting.');
+                // Redirect immediately as user confirmed
+                window.location.href = "https://t.me/+0RsurgoEtTFmZjll"; 
+            } else if (result.dismiss === Swal.DismissReason.timer) { // Timer finished
+                console.log('SweetAlert2 timer finished, auto-redirecting.');
+                // Auto-redirect is handled by the setTimeout below, no action needed here.
             }
         });
-    }, 1000);
-});
 
+        // --- 2. GoToJoin Tracking Implementation ---
+        // This code runs immediately after the SweetAlert2 popup is displayed
+        // and the 3-second auto-redirect timer starts.
+        const goToEventName = 'GoToJoin';
+        const goToButtonName = 'Telegram Auto Redirect Countdown Started';
+        const goToUniqueEventId = generateUniqueEventId(); 
 
-        // Buy Buttons with SweetAlert2
-        const buyButtons = [
-            { id: 'buyBasicBtn', eventName: 'BuyBasicClick', redirectEvent: 'GoToBuyBasic', url: 'https://rdstrading007.com/buy-basic', value: 49, title: 'Basic Plan' },
-            { id: 'buyProBtn', eventName: 'BuyProClick', redirectEvent: 'GoToBuyPro', url: 'https://rdstrading007.com/buy-pro', value: 99, title: 'Pro Plan' },
-            { id: 'buyPremiumBtn', eventName: 'BuyPremiumClick', redirectEvent: 'GoToBuyPremium', url: 'https://rdstrading007.com/buy-premium', value: 199, title: 'Premium Plan' }
-        ];
+        // Send Server-Side Event for GoToJoin
+        sendEventToVercel(goToEventName, goToButtonName, goToUniqueEventId);
+        console.log(`Server-side '${goToEventName}' event sent for auto-redirect with ID: ${goToUniqueEventId}`);
 
-        buyButtons.forEach(button => {
-            document.getElementById(button.id).addEventListener('click', function(event) {
-                event.preventDefault();
-                trackEvent(button.eventName, {
-                    url: button.url,
-                    value: button.value,
-                    currency: 'USD',
-                    content_ids: [button.id],
-                    content_type: 'button',
-                    content_category: 'buy'
-                });
-                console.log(`Showing SweetAlert2 popup for ${button.eventName} at:`, new Date().toISOString());
-                let hasRedirected = false;
-                Swal.fire({
-                    title: `Purchase ${button.title}!`,
-                    html: 'You will be redirected in <b>3</b> seconds.',
-                    icon: 'success',
-                    confirmButtonText: 'Proceed',
-                    background: '#fff',
-                    color: '#333',
-                    confirmButtonColor: '#3085d6',
-                    allowOutsideClick: false,
-                    allowEscapeKey: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                    didOpen: () => {
-                        const b = Swal.getPopup().querySelector('b');
-                        let timerInterval = setInterval(() => {
-                            b.textContent = Math.ceil(Swal.getTimerLeft() / 1000);
-                        }, 100);
-                        Swal.getPopup().addEventListener('close', () => {
-                            clearInterval(timerInterval);
-                        });
-                    }
-                }).then((result) => {
-                    console.log(`SweetAlert2 popup closed for ${button.eventName} at:`, new Date().toISOString());
-                    if (result.isConfirmed && !hasRedirected) {
-                        hasRedirected = true;
-                        trackEvent(button.redirectEvent, {
-                            url: button.url,
-                            content_ids: [`go_to_${button.id}`],
-                            content_type: 'button',
-                            content_category: 'buy'
-                        });
-                    }
-                });
+        // Send Browser-Side Pixel Event for GoToJoin (with the same event_id for deduplication)
+        fbq('track', goToEventName, {
+            button_name: goToButtonName,
+            page_url: window.location.href,
+            event_id: goToUniqueEventId
+        });
+        console.log(`Browser-side '${goToEventName}' event sent for auto-redirect with ID: ${goToUniqueEventId}`);
+        // --- End GoToJoin Tracking ---
+
+        // Set the actual auto-redirect after 3 seconds
+        setTimeout(() => {
+            window.location.href = "https://t.me/+0RsurgoEtTFmZjll";
+        }, 3000);
+    });
+
+    // --- Countdown timer logic (unchanged from your original code) ---
+    const deadline = new Date("2025-06-20T00:00:00"); // Make sure this date is correct
+
+    function updateCountdown() {
+        const now = new Date();
+        const diff = deadline - now;
+        const countdown = document.getElementById("countdown");
+
+        if (!countdown) return;
+
+        if (diff <= 0) {
+            countdown.innerHTML = "<i class='fas fa-hourglass-end' style='margin-right:6px;'></i> Offer expired!";
+            return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+
+        countdown.innerHTML =
+            `<i class="fas fa-clock" style="margin-right: 6px;"></i> ${days}d ${hours}h ${minutes}m ${seconds}s left`;
+
+        // Responsive font size
+        if (window.innerWidth >= 992) {
+            countdown.style.fontSize = "1.6rem"; // desktop size
+        } else {
+            countdown.style.fontSize = "1rem";   // mobile size
+        }
+    }
+
+    updateCountdown(); // Call once immediately
+    setInterval(updateCountdown, 1000); // Update every second
+
+    // On resize, adjust font size dynamically
+    window.addEventListener('resize', updateCountdown);
+
+    // --- Button ripple effect and pulse animation (consolidated) ---
+    document.addEventListener('DOMContentLoaded', () => {
+        const primaryBtn = document.querySelector('.btn-primary');
+        const nowBtn = document.querySelector('.now-button'); // This is your #claimBtn
+
+        // We already have a specific click listener for #claimBtn.
+        // For .btn-primary, we will add the ripple effect without re-adding tracking.
+        if (primaryBtn) {
+            primaryBtn.addEventListener('click', function(e) {
+                // The tracking for data-track-event elements is already handled by the general click listener.
+                // This specific listener is only for the ripple effect.
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const ripple = document.createElement('span');
+                ripple.className = 'ripple';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+
+                this.appendChild(ripple);
+
                 setTimeout(() => {
-                    if (!hasRedirected) {
-                        hasRedirected = true;
-                        console.log(`Auto redirect triggered for ${button.eventName} at:`, new Date().toISOString());
-                        trackEvent(button.redirectEvent, {
-                            url: button.url,
-                            content_ids: [`go_to_${button.id}`],
-                            content_type: 'button',
-                            content_category: 'buy'
-                        });
-                    }
-                }, 3000);
+                    ripple.remove();
+                }, 1000);
             });
-        });
+        }
+        
+        // Pulse animation for .btn-primary (if it's not the claimBtn, which often has its own styles)
+        setInterval(() => {
+            if (primaryBtn) { // Apply pulse to UPGRADE TO PREMIUM NOW button
+                primaryBtn.style.transform = 'scale(1.02)';
+                setTimeout(() => {
+                    primaryBtn.style.transform = '';
+                }, 300);
+            }
+        }, 3000);
+    });
 
-        // Hero CTA Button with SweetAlert2
-        document.getElementById('heroCtaBtn').addEventListener('click', function(event) {
-            event.preventDefault();
-            trackEvent('HeroCtaClick', {
-                url: 'https://t.me/+0RsurgoEtTFmZjll',
-                content_ids: ['hero_cta'],
-                content_type: 'button',
-                content_category: 'hero'
-            });
-            console.log('Showing SweetAlert2 popup for HeroCtaClick at:', new Date().toISOString());
-            let hasRedirected = false;
-            Swal.fire({
-                title: 'Join Now!',
-                html: 'You will be redirected in <b>3</b> seconds.',
-                icon: 'info',
-                confirmButtonText: 'Go to Telegram',
-                background: '#fff',
-                color: '#333',
-                confirmButtonColor: '#3085d6',
-                allowOutsideClick: false,
-                allowEscapeKey: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: () => {
-                    const b = Swal.getPopup().querySelector('b');
-                    let timerInterval = setInterval(() => {
-                        b.textContent = Math.ceil(Swal.getTimerLeft() / 1000);
-                    }, 100);
-                    Swal.getPopup().addEventListener('close', () => {
-                        clearInterval(timerInterval);
-                    });
-                }
-            }).then((result) => {
-                console.log('SweetAlert2 popup closed for HeroCtaClick at:', new Date().toISOString());
-                if (result.isConfirmed && !hasRedirected) {
-                    hasRedirected = true;
-                    trackEvent('GoToHeroCta', {
-                        url: 'https://t.me/+0RsurgoEtTFmZjll',
-                        content_ids: ['go_to_hero_cta'],
-                        content_type: 'button',
-                        content_category: 'hero'
-                    });
-                }
-            });
-            setTimeout(() => {
-                if (!hasRedirected) {
-                    hasRedirected = true;
-                    console.log('Auto redirect triggered for HeroCtaClick at:', new Date().toISOString());
-                    trackEvent('GoToHeroCta', {
-                        url: 'https://t.me/+0RsurgoEtTFmZjll',
-                        content_ids: ['go_to_hero_cta'],
-                        content_type: 'button',
-                        content_category: 'hero'
-                    });
-                }
-            }, 3000);
-        });
-
-        // Button ripple effect
-        document.addEventListener('DOMContentLoaded', () => {
-            const buttons = document.querySelectorAll('.btn');
-            buttons.forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    const rect = this.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-
-                    const ripple = document.createElement('span');
-                    ripple.className = 'ripple';
-                    ripple.style.left = x + 'px';
-                    ripple.style.top = y + 'px';
-
-                    this.appendChild(ripple);
-
-                    setTimeout(() => {
-                        ripple.remove();
-                    }, 1000);
-                });
-            });
-        });
+    // --- End of Consolidated JavaScript ---
     </script>
 </body>
 </html>
