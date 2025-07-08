@@ -5,7 +5,8 @@
   "main": "api/track-event.js",
   "type": "module",
   "scripts": {
-    "start": "node api/track-event.js"
+    "start": "node api/track-event.js",
+    "build": "echo 'No build needed'"
   },
   "dependencies": {}
 }
