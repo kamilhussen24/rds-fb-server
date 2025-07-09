@@ -1,4 +1,33 @@
 <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.com/en_US/fbevents.js');
+    fbq('init', '1395230681787715'); // Your Facebook Pixel ID (e.g., '1415758302881950')
+    // PageView is handled by custom JS for server-side integration and deduplication.
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1395230681787715&ev=PageView&noscript=1"
+    /></noscript>
+      	
+      	<button class="event-button success" 
+          data-track-event="Join" 
+          data-button-name="Join Button">
+    <i class="fas fa-users"></i> Join
+  </button>
+
+  <button class="event-button warning" 
+          data-track-event="Call" 
+          data-button-name="Call Button">
+    <i class="fas fa-phone"></i> Call
+  </button>
+      	
+      	
+      	
     // --- Start of Tracking Script ---
 
     // Function to generate a unique event ID for deduplication
