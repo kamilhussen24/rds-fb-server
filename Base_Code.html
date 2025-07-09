@@ -1,0 +1,71 @@
+<script>
+    // --- Start of Tracking Script ---
+
+    // Function to generate a unique event ID for deduplication
+    function generateUniqueEventId() {
+        return 'evt_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    }
+
+    // Function to get cookie values (_fbc and _fbp)
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+        return null;
+    }
+
+    // Function to send event data to the Vercel serverless function
+    async function sendEventToVercel(eventName, buttonName = null, uniqueEventId) { 
+        // Collect Facebook cookies
+        const fbcCookie = getCookie('_fbc');
+        const fbpCookie = getCookie('_fbp');
+
+        const payload = {
+            eventName: eventName,
+            buttonName: buttonName, 
+            pageUrl: window.location.href,
+            eventId: uniqueEventId,
+            fbc: fbcCookie, 
+            fbp: fbpCookie  
+            // Optional: Include user's email or phone if collected on your site (hashed in Vercel function)
+            // userEmail: 'user@example.com', 
+            // userPhone: '1234567890'
+        };
+
+        try {
+            console.log(`Sending '${eventName}' event to Vercel API with ID: ${uniqueEventId}`);
+            const response = await fetch('https://rds-server-kamildex.vercel.app/api/track-event', { // Path to your Vercel serverless function
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload),
+                credentials: 'include' // Use 'include' to ensure cookies are sent with cross-origin requests
+            });
+
+            const data = await response.json();
+            console.log(`Vercel Function Response for '${eventName}':`, data);
+
+            if (!data.success) {
+                console.error('ERROR: Failed to send event via Vercel:', data.message);
+            }
+
+        } catch (error) {
+            console.error('ERROR: Error calling Vercel function:', error);
+        }
+    }
+
+    // --- PageView Tracking Setup ---
+    // Generate a unique ID for the initial PageView
+    const pageViewEventId = generateUniqueEventId();
+
+    // Send Server-Side PageView event on page load
+    window.addEventListener('load', function() {
+        sendEventToVercel('PageView', null, pageViewEventId); // buttonName is null for PageView
+    });
+
+    // Send Browser-Side PageView event (with the same event_id for deduplication)
+    fbq('track', 'PageView', {
+        event_id: pageViewEventId 
+    });
+    console.log(`Browser-side 'PageView' event sent with ID: ${pageViewEventId}`);

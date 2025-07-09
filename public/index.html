@@ -937,42 +937,42 @@
         }, 3000);
     });
 
-    // --- Countdown timer logic (unchanged from your original code) ---
-    const deadline = new Date("2025-06-20T00:00:00"); // Make sure this date is correct
+    // Countdown timer
+        const deadline = new Date("2025-07-11T00:00:00");
 
-    function updateCountdown() {
-        const now = new Date();
-        const diff = deadline - now;
-        const countdown = document.getElementById("countdown");
+        function updateCountdown() {
+            const now = new Date();
+            const diff = deadline - now;
+            const countdown = document.getElementById("countdown");
 
-        if (!countdown) return;
+            if (!countdown) return;
 
-        if (diff <= 0) {
-            countdown.innerHTML = "<i class='fas fa-hourglass-end' style='margin-right:6px;'></i> Offer expired!";
-            return;
+            if (diff <= 0) {
+                countdown.innerHTML = "<i class='fas fa-hourglass-end' style='margin-right:6px;'></i> Offer expired!";
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / (1000 * 60)) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
+
+            countdown.innerHTML =
+                `<i class="fas fa-clock" style="margin-right: 6px;"></i> ${days}d ${hours}h ${minutes}m ${seconds}s left`;
+
+            // Responsive font size
+            if (window.innerWidth >= 992) {
+                countdown.style.fontSize = "1.6rem"; // desktop size
+            } else {
+                countdown.style.fontSize = "1rem";   // mobile size
+            }
         }
 
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-        const minutes = Math.floor((diff / (1000 * 60)) % 60);
-        const seconds = Math.floor((diff / 1000) % 60);
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
 
-        countdown.innerHTML =
-            `<i class="fas fa-clock" style="margin-right: 6px;"></i> ${days}d ${hours}h ${minutes}m ${seconds}s left`;
-
-        // Responsive font size
-        if (window.innerWidth >= 992) {
-            countdown.style.fontSize = "1.6rem"; // desktop size
-        } else {
-            countdown.style.fontSize = "1rem";   // mobile size
-        }
-    }
-
-    updateCountdown(); // Call once immediately
-    setInterval(updateCountdown, 1000); // Update every second
-
-    // On resize, adjust font size dynamically
-    window.addEventListener('resize', updateCountdown);
+        // On resize, adjust font size dynamically
+        window.addEventListener('resize', updateCountdown);
 
     // --- Button ripple effect and pulse animation (consolidated) ---
     document.addEventListener('DOMContentLoaded', () => {
