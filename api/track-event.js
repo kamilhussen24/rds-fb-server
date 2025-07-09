@@ -113,11 +113,18 @@ export default async function handler(req, res) {
   // test_event_code: 'TEST12345', 
   };
 
-  if (buttonName) {
-    eventPayload.custom_data = {
-      button_name: buttonName, 
-    };
+  const eventsWithValue = ['ClaimNowClick', 'Purchase', 'Lead']; // শুধু এই ইভেন্টগুলাতে value+currency যাবে
+
+if (buttonName) {
+  eventPayload.custom_data = {
+    button_name: buttonName
+  };
+
+  if (eventsWithValue.includes(eventName)) {
+    eventPayload.custom_data.value = 1.00;
+    eventPayload.custom_data.currency = 'BDT';
   }
+}
 
   try {
     console.log(`Attempting to send event '${eventName}' to Facebook.`);
