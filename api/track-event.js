@@ -104,7 +104,7 @@ eventPayload.custom_data = {
     button_name: buttonName || eventName,
     ...(value !== undefined && value !== null && {
       value: value,
-      currency: currency || 'USD',
+      currency: currency || 'BDT',
     }),
 };
 
