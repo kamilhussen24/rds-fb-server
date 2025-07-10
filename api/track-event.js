@@ -74,41 +74,39 @@ export default async function handler(req, res) {
   });
 
   // Build event payload for Facebook
-const eventPayload = {
-  event_name: eventName, 
-  // event_time: Math.floor(Date.now() / 1000), // Original line - to be modified
+  const eventPayload = {
+    event_name: eventName, 
+    action_source: 'website', 
+    event_source_url: pageUrl,
+    user_data: userData, 
+    event_id: eventId, 
+    // test_event_code: 'TEST12345', // REMOVE FOR PRODUCTION!
+  };
 
-  // --- NEW: Derive event_time from _fbc cookie if possible, else use current time ---
-  event_time: Math.floor(Date.now() / 1000), // Default to current time
-  action_source: 'website', 
-  event_source_url: pageUrl,
-  user_data: userData, 
-  event_id: eventId, 
-  // test_event_code: 'TEST12345', // REMOVE FOR PRODUCTION!
-};
-
-// If fbc cookie is available, try to extract its creation time (first part of _fbc)
-// _fbc format: creationTime.version.subdomainIndex.sequenceNumber.fbc
-if (fbc) {
+  // --- NEW FIX 1: Derive event_time from _fbc cookie if possible, else use current time ---
+  eventPayload.event_time = Math.floor(Date.now() / 1000); // Default to current time
+  if (fbc) {
     const fbcParts = fbc.split('.');
-    if (fbcParts.length >= 2 && !isNaN(parseInt(fbcParts[0]))) {
-        const fbcCreationTimeMs = parseInt(fbcParts[0]); // fbc creation time is in milliseconds
-        // Use the fbc creation time, converting it to seconds for event_time
-        eventPayload.event_time = Math.floor(fbcCreationTimeMs / 1000);
+    // _fbc format: fb.1.<timestamp>.<fbclid>
+    // Timestamp is in seconds and located at index 2
+    if (fbcParts.length >= 4 && !isNaN(parseInt(fbcParts[2]))) {
+        const fbcCreationTime = parseInt(fbcParts[2]); // This is already in seconds
+        eventPayload.event_time = fbcCreationTime;
     }
-}
-// --- END NEW ---
+  }
+  // --- END NEW FIX 1 ---
 
-// Conditionally add custom_data and standard value/currency
-eventPayload.custom_data = {
-    button_name: buttonName || eventName,
-    ...(value !== undefined && value !== null && {
-      value: value,
-      currency: currency || 'BDT',
+  // --- NEW FIX 2: Conditionally add value/currency inside custom_data and ensure value is number type ---
+  eventPayload.custom_data = {
+    button_name: buttonName || eventName, // Always include button name if available
+    // Conditionally add value and currency inside custom_data
+    ...(value !== undefined && value !== null && { // Check if value is defined and not null
+      // Ensure value is a number, even if it comes as a string from payload
+      value: typeof value === 'string' ? parseFloat(value) : value, 
+      currency: currency || 'BDT', // Default to BDT if currency is missing
     }),
-};
-
-  // --- End Updated ---
+  };
+  // --- END NEW FIX 2 ---
 
   // Send event to Facebook
   try {
