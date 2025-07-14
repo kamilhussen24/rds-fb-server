@@ -94,15 +94,27 @@ export default async function handler(req, res) {
     // _fbc format: fb.1.<timestamp>.<fbclid>
     // Timestamp is in seconds and located at index 2
     if (fbcParts.length >= 4 && !isNaN(parseInt(fbcParts[2]))) {
-        const fbcCreationTime = parseInt(fbcParts[2]); // This is already in seconds
-        const currentTimeSec = Math.floor(Date.now() / 1000);
-        const oneDayAgo = currentTimeSec - 86400; // Define 1 day in seconds (24 * 60 * 60)
+        const fbcCreationTime = parseInt(fbcParts[2]); // This is the value from the cookie
 
-        // Only use fbcCreationTime if it's not in the future and not unreasonably old (e.g., more than 1 day ago)
-        if (fbcCreationTime <= (currentTimeSec + 60) && fbcCreationTime >= oneDayAgo) { // Allow slight future leeway
-            finalEventTime = fbcCreationTime;
+        // --- IMPORTANT FIX HERE: Convert fbcCreationTime from milliseconds to seconds if it's in milliseconds ---
+        let adjustedFbcCreationTime = fbcCreationTime;
+        // A simple heuristic: if the timestamp is much larger than current seconds timestamp, it's likely milliseconds.
+        // Current timestamp is around 10 digits (seconds), milliseconds around 13 digits.
+        if (fbcCreationTime > 4000000000) { // If it's a 13-digit number (larger than approx year 2096 in seconds)
+             adjustedFbcCreationTime = Math.floor(fbcCreationTime / 1000); // Convert to seconds
+             console.log(`DEBUG: Converted fbcCreationTime from ms to sec: ${fbcCreationTime} -> ${adjustedFbcCreationTime}`);
+        }
+        // --- END IMPORTANT FIX ---
+
+        const currentTimeSec = Math.floor(Date.now() / 1000);
+        const oneDayAgo = currentTimeSec - 86400; // 1 day in seconds (24 * 60 * 60)
+
+        // Only use adjustedFbcCreationTime if it's not in the future and not unreasonably old (e.g., more than 1 day ago)
+        // Allow a small buffer (e.g., 60 seconds) for network latency/server time differences for "future" check
+        if (adjustedFbcCreationTime <= (currentTimeSec + 60) && adjustedFbcCreationTime >= oneDayAgo) {
+            finalEventTime = adjustedFbcCreationTime;
         } else {
-            console.warn(`WARNING: Invalid _fbc creation time (${fbcCreationTime}) for event '${eventName}'. Using current time instead.`);
+            console.warn(`WARNING: Invalid _fbc creation time (${fbcCreationTime}) for event '${eventName}' (adjusted to ${adjustedFbcCreationTime}). Using current time instead. Reason: outside valid range or malformed.`);
         }
     } else {
         console.warn(`WARNING: Malformed _fbc cookie '${fbc}' for event '${eventName}'. Using current time for event_time.`);
