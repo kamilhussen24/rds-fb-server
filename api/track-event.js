@@ -1,11 +1,14 @@
 // api/track-event.js
-import { URL } from 'url';
+import { URL } from 'url'; // Node.js URL module for parsing
 
 export default async function handler(req, res) {
+  // Define allowed origins for CORS.
+  // Get ALLOWED_ORIGINS from Vercel Environment Variables. Example: "https://yourlandingpage.com,https://www.yourlandingpage.com"
   const allowedOrigins = process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : [];
-  const requestOrigin = req.headers.origin;
+  const requestOrigin = req.headers.origin; // Get the origin from the request headers
 
   let isOriginAllowed = false;
+  // Check if the request origin is in the allowed list
   if (requestOrigin && allowedOrigins.includes(requestOrigin)) {
     isOriginAllowed = true;
   } else if (allowedOrigins.length === 0) {
@@ -13,15 +16,17 @@ export default async function handler(req, res) {
     isOriginAllowed = true;
   }
 
-  // CORS Headers
+  // Set common CORS Headers.
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   res.setHeader('Access-Control-Max-Age', 86400); // Cache preflight response for 24 hours
-  res.setHeader('Access-Control-Allow-Credentials', 'true'); 
+  res.setHeader('Access-Control-Allow-Credentials', 'true'); // Required when client uses `credentials: 'include'`
 
+  // Set Access-Control-Allow-Origin header based on whether the origin is allowed.
   if (isOriginAllowed && requestOrigin) {
     res.setHeader('Access-Control-Allow-Origin', requestOrigin);
   } else if (requestOrigin) {
+    // If origin exists but is NOT allowed, set a non-matching ACAO to fail browser check.
     res.setHeader('Access-Control-Allow-Origin', allowedOrigins[0] || 'null');
   }
 
@@ -83,7 +88,7 @@ export default async function handler(req, res) {
     // test_event_code: 'TEST12345', // IMPORTANT: REMOVE/COMMENT OUT FOR PRODUCTION! Only for testing.
   };
 
-  // --- FIX: Derive event_time from _fbc cookie robustly, else use current time ---
+  // --- FIX: Derive event_time from _fbc cookie if possible, else use current time ---
   let finalEventTime = Math.floor(Date.now() / 1000); // Default to current time in seconds (most reliable fallback)
 
   if (fbc) { // If fbc cookie value is available from frontend payload
