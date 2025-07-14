@@ -2,8 +2,6 @@
 import { URL } from 'url';
 
 export default async function handler(req, res) {
-  // Define allowed origins for CORS.
-  // Get ALLOWED_ORIGINS from Vercel Environment Variables. Example: "https://yourlandingpage.com,https://www.yourlandingpage.com"
   const allowedOrigins = process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : [];
   const requestOrigin = req.headers.origin;
 
@@ -15,17 +13,16 @@ export default async function handler(req, res) {
     isOriginAllowed = true;
   }
 
-  // Set common CORS Headers.
+  // CORS Headers
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   res.setHeader('Access-Control-Max-Age', 86400); // Cache preflight response for 24 hours
-  res.setHeader('Access-Control-Allow-Credentials', 'true'); // Required when client uses `credentials: 'include'`
+  res.setHeader('Access-Control-Allow-Credentials', 'true'); 
 
-  // Set Access-Control-Allow-Origin header based on whether the origin is allowed.
   if (isOriginAllowed && requestOrigin) {
     res.setHeader('Access-Control-Allow-Origin', requestOrigin);
   } else if (requestOrigin) {
-    res.setHeader('Access-Control-Allow-Origin', allowedOrigins[0] || 'null'); // Set to a dummy or first allowed origin to fail browser check
+    res.setHeader('Access-Control-Allow-Origin', allowedOrigins[0] || 'null');
   }
 
   // Handle preflight (OPTIONS) requests.
@@ -86,35 +83,36 @@ export default async function handler(req, res) {
     // test_event_code: 'TEST12345', // IMPORTANT: REMOVE/COMMENT OUT FOR PRODUCTION! Only for testing.
   };
 
-  // --- FIX: Derive event_time from _fbc cookie if possible, else use current time ---
-  let finalEventTime = Math.floor(Date.now() / 1000); // Default to current time in seconds
+  // --- FIX: Derive event_time from _fbc cookie robustly, else use current time ---
+  let finalEventTime = Math.floor(Date.now() / 1000); // Default to current time in seconds (most reliable fallback)
 
   if (fbc) { // If fbc cookie value is available from frontend payload
     const fbcParts = fbc.split('.');
     // _fbc format: fb.1.<timestamp>.<fbclid>
     // Timestamp is in seconds and located at index 2
     if (fbcParts.length >= 4 && !isNaN(parseInt(fbcParts[2]))) {
-        const fbcCreationTime = parseInt(fbcParts[2]); // This is the value from the cookie
+        let fbcCreationTime = parseInt(fbcParts[2]); // This is the value from the cookie
 
         // --- IMPORTANT FIX HERE: Convert fbcCreationTime from milliseconds to seconds if it's in milliseconds ---
-        let adjustedFbcCreationTime = fbcCreationTime;
-        // A simple heuristic: if the timestamp is much larger than current seconds timestamp, it's likely milliseconds.
+        // A common heuristic: if the timestamp is much larger than current seconds timestamp, it's likely milliseconds.
         // Current timestamp is around 10 digits (seconds), milliseconds around 13 digits.
         if (fbcCreationTime > 4000000000) { // If it's a 13-digit number (larger than approx year 2096 in seconds)
-             adjustedFbcCreationTime = Math.floor(fbcCreationTime / 1000); // Convert to seconds
-             console.log(`DEBUG: Converted fbcCreationTime from ms to sec: ${fbcCreationTime} -> ${adjustedFbcCreationTime}`);
+             fbcCreationTime = Math.floor(fbcCreationTime / 1000); // Convert to seconds
+             console.log(`DEBUG: Converted fbcCreationTime from ms to sec: ${fbcCreationTime * 1000} -> ${fbcCreationTime}`); // Log original ms for context
         }
         // --- END IMPORTANT FIX ---
 
         const currentTimeSec = Math.floor(Date.now() / 1000);
-        const oneDayAgo = currentTimeSec - 86400; // 1 day in seconds (24 * 60 * 60)
+        const fiveMinutesAgo = currentTimeSec - 300; // 5 minutes ago in seconds
+        const oneDayAgo = currentTimeSec - 86400; // 1 day ago in seconds
 
-        // Only use adjustedFbcCreationTime if it's not in the future and not unreasonably old (e.g., more than 1 day ago)
-        // Allow a small buffer (e.g., 60 seconds) for network latency/server time differences for "future" check
-        if (adjustedFbcCreationTime <= (currentTimeSec + 60) && adjustedFbcCreationTime >= oneDayAgo) {
-            finalEventTime = adjustedFbcCreationTime;
+        // VALIDATION: Only use fbcCreationTime if it's within a reasonable window (e.g., last 24 hours, not in future)
+        // If it falls outside this, it's likely invalid from Facebook's perspective.
+        if (fbcCreationTime >= oneDayAgo && fbcCreationTime <= (currentTimeSec + 60)) { // Allow 60 sec future buffer
+            finalEventTime = fbcCreationTime;
         } else {
-            console.warn(`WARNING: Invalid _fbc creation time (${fbcCreationTime}) for event '${eventName}' (adjusted to ${adjustedFbcCreationTime}). Using current time instead. Reason: outside valid range or malformed.`);
+            // Log if the fbc creation time is outside the valid range.
+            console.warn(`WARNING: _fbc creation time (${fbcCreationTime}) is outside valid range for event '${eventName}'. Using current time instead. Range: [${oneDayAgo}, ${currentTimeSec + 60}].`);
         }
     } else {
         console.warn(`WARNING: Malformed _fbc cookie '${fbc}' for event '${eventName}'. Using current time for event_time.`);
